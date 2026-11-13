@@ -1,0 +1,21 @@
+// Stage 0 baseline: only a small metadata table. Business tables come in later stages.
+// Naming rules: models are PascalCase, tables are snake_case plural, columns are snake_case.
+
+generator client {
+  provider     = "prisma-client"
+  output       = "../src/generated/prisma"
+  moduleFormat = "cjs"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model AppMetadata {
+  key        String   @id
+  value      String
+  created_at DateTime @default(now()) @db.Timestamptz(6)
+  updated_at DateTime @updatedAt @db.Timestamptz(6)
+
+  @@map("app_metadata")
+}
